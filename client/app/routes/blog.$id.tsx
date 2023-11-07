@@ -8,7 +8,7 @@ type Loaderdata = {
     post: Awaited<ReturnType<typeof getBlogPost>>;
 }
 
-// loader for route
+// loader for route <-> middleware
 export const loader: LoaderFunction = async ({ params }) => {
     return json<Loaderdata>({
         post: await getBlogPost(params.id),

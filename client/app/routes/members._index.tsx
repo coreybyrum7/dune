@@ -18,7 +18,7 @@ export const loader = async () => {
   return json<Loaderdata>({
     profiles: await getProfiles(),
   });
-};
+}; x
 
 export default function Members() {
   const { profiles } = useLoaderData() as Loaderdata;

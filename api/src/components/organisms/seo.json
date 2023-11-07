@@ -1,0 +1,37 @@
+{
+  "collectionName": "components_organisms_seos",
+  "info": {
+    "displayName": "Seo"
+  },
+  "options": {},
+  "attributes": {
+    "MetaTitle": {
+      "type": "string"
+    },
+    "MetaDescription": {
+      "type": "text"
+    },
+    "Meta": {
+      "displayName": "Meta",
+      "type": "component",
+      "repeatable": true,
+      "component": "molecules.meta"
+    },
+    "PreventIndexing": {
+      "type": "boolean"
+    },
+    "StructuredData": {
+      "type": "json"
+    },
+    "MetaImage": {
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ],
+      "type": "media",
+      "multiple": false
+    }
+  }
+}

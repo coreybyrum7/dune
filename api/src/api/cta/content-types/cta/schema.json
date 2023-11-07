@@ -1,0 +1,27 @@
+{
+  "kind": "collectionType",
+  "collectionName": "ctas",
+  "info": {
+    "singularName": "cta",
+    "pluralName": "ctas",
+    "displayName": "CTA",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "Title": {
+      "type": "string"
+    },
+    "Description": {
+      "type": "string"
+    },
+    "Button": {
+      "type": "component",
+      "repeatable": true,
+      "component": "atoms.button"
+    }
+  }
+}

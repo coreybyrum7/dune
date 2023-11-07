@@ -1,0 +1,18 @@
+{
+  "collectionName": "components_page_sections",
+  "info": {
+    "displayName": "Section"
+  },
+  "options": {},
+  "attributes": {
+    "Width": {
+      "type": "enumeration",
+      "enum": [
+        "Default",
+        "Full",
+        "Narrow"
+      ],
+      "default": "Default"
+    }
+  }
+}
