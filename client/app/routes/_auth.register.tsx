@@ -5,7 +5,7 @@ import { useActionData } from "@remix-run/react";
 import ProfileForm from "~/components/Profile/Form";
 import { register } from "~/models/profiles.server";
 import { createUserSession } from "~/utils/session.server";
-import type { RegisterActionData } from "~/utils/types";
+import type { RegisterActionData } from "~/utils/types/Profile";
 
 export const action: ActionFunction = async ({ request }) => {
   try {

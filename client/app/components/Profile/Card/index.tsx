@@ -1,25 +1,15 @@
 // ./app/components/ProfileCard.tsx
 
 import { Link } from "@remix-run/react";
+import { getImgUrl } from "~/utils/shared";
 
 // type definitions for Profile response
-import { Profile } from "~/utils/types";
-
-// strapi url from environment variables
-const strapiUrl = `http://localhost:1337`;
-
-// helper function to get image url for user
-// we're also using https://ui-avatars.com api to generate images
-// the function appends the image url returned
-const getImgUrl = ({ url, username }: { url: string | undefined; username: string | undefined | "A+N" }) =>
-  url ? `${strapiUrl}${url}` : `https://ui-avatars.com/api/?name=${username?.replace(" ", "+")}&background=2563eb&color=fff`;
+import { Profile } from "~/utils/types/Profile";
 
 // component accepts `profile` prop which contains the user profile data and
 // `preview` prop which indicates whether the card is used in a list or
 // on its own in a dynamic page
 const ProfileCard = ({ profile, preview }: { profile: Profile; preview: boolean }) => {
-  console.log({ profile });
-
   return (
     <>
       {/* add the .preview class if `preview` == true */}
@@ -28,7 +18,7 @@ const ProfileCard = ({ profile, preview }: { profile: Profile; preview: boolean 
           <div className="profile-pic-cont">
             <figure className="profile-pic img-cont">
               <img
-                src={getImgUrl({ url: profile.profilePic?.formats.small.url, username: profile.username })}
+                src={getImgUrl({ url: profile.profilePic?.formats?.small?.url, username: profile.username })}
                 alt={`A photo of ${profile.username}`}
                 className="w-full"
               />

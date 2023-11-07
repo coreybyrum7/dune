@@ -4,10 +4,10 @@
 import { Form, Link, useNavigation } from "@remix-run/react";
 
 // import type definitions
-import type { Profile } from "~/utils/types";
+import type { Profile } from "~/utils/types/Profile";
 
 // component accepts `user` prop to determine if user is logged in
-const SiteHeader = ({user} : {user?: Profile | undefined}) => {
+const SiteHeader = ({ user }: { user?: Profile | undefined }) => {
   const navigation = useNavigation()
   return (
     <header className="site-header">
@@ -34,7 +34,7 @@ const SiteHeader = ({user} : {user?: Profile | undefined}) => {
                   <Link to='/members'>Members</Link>
                 </li>
                 <li className="link">
-                  <Link to='/blog'>Blog</Link>
+                  <Link to='/blog/all'>Blog</Link>
                 </li>
                 {/* show sign in and register link if user is not logged in */}
                 <li className="link"><Link to="/login">Sign In</Link></li>

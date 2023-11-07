@@ -4,7 +4,7 @@ import { Form, useNavigation } from "@remix-run/react";
 import { useEffect, useState } from "react";
 
 // custom type declarations
-import type { ProfileFormProps } from "~/utils/types";
+import type { ProfileFormProps } from "~/utils/types/Profile";
 
 const ProfileForm = ({ profile, onModifyData, action, errors }: ProfileFormProps) => {
   // get state of form

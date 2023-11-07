@@ -8,7 +8,7 @@ import { useState } from "react";
 import { updateProfile, getProfileBySlug } from "~/models/profiles.server";
 import { getUserData } from "~/utils/session.server";
 
-import type { Profile as ProfileType } from "~/utils/types";
+import type { Profile as ProfileType } from "~/utils/types/Profile";
 import ProfileCard from "~/components/Profile/Card";
 import ProfileForm from "~/components/Profile/Form";
 
@@ -21,10 +21,10 @@ type Loaderdata = {
 // action data type
 type EditActionData =
   | {
-      id: string | null;
-      username: string | null;
-      title: string | null;
-    }
+    id: string | null;
+    username: string | null;
+    title: string | null;
+  }
   | undefined;
 
 // loader function to get posts by slug

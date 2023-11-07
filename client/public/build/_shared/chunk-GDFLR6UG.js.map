@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["../../../app/utils/shared/index.ts"],
+  "sourcesContent": ["// REMIX HMR BEGIN\nimport * as __hmr__ from \"remix:hmr\";\nif (import.meta) {\nimport.meta.hot = __hmr__.createHotContext(\n//@ts-expect-error\n\"app/utils/shared/index.ts\"\n);\nimport.meta.hot.lastModified = \"1699307459251.0503\";\n}\n// REMIX HMR END\n\n// strapi url from environment variables\nexport const strapiUrl = `http://localhost:1337`;\n\n// helper function to get image url for user\n// we're also using https://ui-avatars.com api to generate images\n// the function appends the image url returned\nexport const getImgUrl = ({\n  url,\n  username,\n}: {\n  url: string | undefined;\n  username: string | undefined | \"A+N\";\n}) =>\n  url\n    ? `${strapiUrl}${url}`\n    : `https://ui-avatars.com/api/?name=${username?.replace(\n        \" \",\n        \"+\"\n      )}&background=2563eb&color=fff`;\n"],
+  "mappings": ";;;;;AAEA,IAAI,aAAa;AACjB,cAAY,MAAc;AAAA;AAAA,IAE1B;AAAA,EACA;AACA,cAAY,IAAI,eAAe;AAC/B;AAIO,IAAM,YAAY;AAKlB,IAAM,YAAY,CAAC;AAAA,EACxB;AAAA,EACA;AACF,MAIE,MACI,GAAG,YAAY,QACf,oCAAoC,UAAU;AAAA,EAC5C;AAAA,EACA;AACF;",
+  "names": []
+}

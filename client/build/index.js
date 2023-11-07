@@ -192,7 +192,7 @@ var SiteHeader = ({ user }) => {
         lineNumber: 33,
         columnNumber: 17
       }, this),
-      /* @__PURE__ */ jsxDEV2("li", { className: "link", children: /* @__PURE__ */ jsxDEV2(Link, { to: "/blog", children: "Blog" }, void 0, !1, {
+      /* @__PURE__ */ jsxDEV2("li", { className: "link", children: /* @__PURE__ */ jsxDEV2(Link, { to: "/blog/all", children: "Blog" }, void 0, !1, {
         fileName: "app/components/Header/index.tsx",
         lineNumber: 37,
         columnNumber: 19
@@ -373,7 +373,9 @@ var slugify = (str) => str && str.toLowerCase().trim().replace(/[^\w\s-]/g, "").
 
 // app/models/profiles.server.ts
 var strapiApiUrl = process.env.STRAPI_API_URL, getProfiles = async () => await (await fetch(`${strapiApiUrl}/users/?populate=profilePic`)).json(), getProfileBySlug = async (slug) => {
-  let response = await (await fetch(`${strapiApiUrl}/users?populate=profilePic&filters[slug]=${slug}`)).json();
+  let response = await (await fetch(
+    `${strapiApiUrl}/users?populate=profilePic&filters[slug]=${slug}`
+  )).json();
   return console.log({ response }), response[0];
 }, signIn = async (data) => {
   console.log({ data });
@@ -395,7 +397,8 @@ var strapiApiUrl = process.env.STRAPI_API_URL, getProfiles = async () => await (
     body: JSON.stringify(data)
   })).json();
 }, updateProfile = async (data, token) => {
-  let { id } = data, response = await (await fetch(`${strapiApiUrl}/users/${id}`, {
+  let { id } = data;
+  return await (await fetch(`${strapiApiUrl}/users/${id}`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
@@ -404,14 +407,17 @@ var strapiApiUrl = process.env.STRAPI_API_URL, getProfiles = async () => await (
     },
     body: JSON.stringify(data)
   })).json();
-  return console.log({ response }), response;
 }, sendResetMail = async (email) => await (await fetch(`${strapiApiUrl}/auth/forgot-password`, {
   method: "POST",
   headers: {
     "Content-Type": "application/json"
   },
   body: JSON.stringify({ email })
-})).json(), resetPass = async ({ password, passwordConfirmation, code }) => await (await fetch(`${strapiApiUrl}/auth/reset-password`, {
+})).json(), resetPass = async ({
+  password,
+  passwordConfirmation,
+  code
+}) => await (await fetch(`${strapiApiUrl}/auth/reset-password`, {
   method: "POST",
   headers: {
     "Content-Type": "application/json"
@@ -1009,12 +1015,23 @@ import { useLoaderData as useLoaderData3 } from "@remix-run/react";
 
 // app/components/Profile/Card/index.tsx
 import { Link as Link2 } from "@remix-run/react";
+
+// app/utils/shared/index.ts
+var strapiUrl = "http://localhost:1337", getImgUrl = ({
+  url,
+  username
+}) => url ? `${strapiUrl}${url}` : `https://ui-avatars.com/api/?name=${username?.replace(
+  " ",
+  "+"
+)}&background=2563eb&color=fff`;
+
+// app/components/Profile/Card/index.tsx
 import { Fragment as Fragment3, jsxDEV as jsxDEV8 } from "react/jsx-dev-runtime";
-var strapiUrl = "http://localhost:1337", getImgUrl = ({ url, username }) => url ? `${strapiUrl}${url}` : `https://ui-avatars.com/api/?name=${username?.replace(" ", "+")}&background=2563eb&color=fff`, ProfileCard = ({ profile, preview }) => (console.log({ profile }), /* @__PURE__ */ jsxDEV8(Fragment3, { children: /* @__PURE__ */ jsxDEV8("article", { className: `profile ${preview ? "preview" : ""}`, children: /* @__PURE__ */ jsxDEV8("div", { className: "wrapper", children: [
+var ProfileCard = ({ profile, preview }) => /* @__PURE__ */ jsxDEV8(Fragment3, { children: /* @__PURE__ */ jsxDEV8("article", { className: `profile ${preview ? "preview" : ""}`, children: /* @__PURE__ */ jsxDEV8("div", { className: "wrapper", children: [
   /* @__PURE__ */ jsxDEV8("div", { className: "profile-pic-cont", children: /* @__PURE__ */ jsxDEV8("figure", { className: "profile-pic img-cont", children: /* @__PURE__ */ jsxDEV8(
     "img",
     {
-      src: getImgUrl({ url: profile.profilePic?.formats.small.url, username: profile.username }),
+      src: getImgUrl({ url: profile.profilePic?.formats?.small?.url, username: profile.username }),
       alt: `A photo of ${profile.username}`,
       className: "w-full"
     },
@@ -1022,24 +1039,24 @@ var strapiUrl = "http://localhost:1337", getImgUrl = ({ url, username }) => url 
     !1,
     {
       fileName: "app/components/Profile/Card/index.tsx",
-      lineNumber: 30,
+      lineNumber: 20,
       columnNumber: 15
     },
     this
   ) }, void 0, !1, {
     fileName: "app/components/Profile/Card/index.tsx",
-    lineNumber: 29,
+    lineNumber: 19,
     columnNumber: 13
   }, this) }, void 0, !1, {
     fileName: "app/components/Profile/Card/index.tsx",
-    lineNumber: 28,
+    lineNumber: 18,
     columnNumber: 11
   }, this),
   /* @__PURE__ */ jsxDEV8("div", { className: "profile-content", children: [
     /* @__PURE__ */ jsxDEV8("header", { className: "profile-header ", children: [
       /* @__PURE__ */ jsxDEV8("h3", { className: "username", children: profile.username }, void 0, !1, {
         fileName: "app/components/Profile/Card/index.tsx",
-        lineNumber: 39,
+        lineNumber: 29,
         columnNumber: 15
       }, this),
       profile.twitterUsername && /* @__PURE__ */ jsxDEV8("a", { href: "https://twitter.com/miracleio", className: "twitter link", children: [
@@ -1047,17 +1064,17 @@ var strapiUrl = "http://localhost:1337", getImgUrl = ({ url, username }) => url 
         profile.twitterUsername
       ] }, void 0, !0, {
         fileName: "app/components/Profile/Card/index.tsx",
-        lineNumber: 43,
+        lineNumber: 33,
         columnNumber: 17
       }, this),
       profile.bio && /* @__PURE__ */ jsxDEV8("p", { className: "bio", children: profile.bio }, void 0, !1, {
         fileName: "app/components/Profile/Card/index.tsx",
-        lineNumber: 49,
+        lineNumber: 39,
         columnNumber: 31
       }, this)
     ] }, void 0, !0, {
       fileName: "app/components/Profile/Card/index.tsx",
-      lineNumber: 38,
+      lineNumber: 28,
       columnNumber: 13
     }, this),
     /* @__PURE__ */ jsxDEV8("ul", { className: "links", children: [
@@ -1073,13 +1090,13 @@ var strapiUrl = "http://localhost:1337", getImgUrl = ({ url, username }) => url 
           !1,
           {
             fileName: "app/components/Profile/Card/index.tsx",
-            lineNumber: 56,
+            lineNumber: 46,
             columnNumber: 21
           },
           this
         ) }, void 0, !1, {
           fileName: "app/components/Profile/Card/index.tsx",
-          lineNumber: 55,
+          lineNumber: 45,
           columnNumber: 19
         }, this),
         /* @__PURE__ */ jsxDEV8("span", { children: [
@@ -1088,12 +1105,12 @@ var strapiUrl = "http://localhost:1337", getImgUrl = ({ url, username }) => url 
           " "
         ] }, void 0, !0, {
           fileName: "app/components/Profile/Card/index.tsx",
-          lineNumber: 62,
+          lineNumber: 52,
           columnNumber: 19
         }, this)
       ] }, void 0, !0, {
         fileName: "app/components/Profile/Card/index.tsx",
-        lineNumber: 54,
+        lineNumber: 44,
         columnNumber: 17
       }, this),
       profile.websiteUrl && /* @__PURE__ */ jsxDEV8("li", { className: "w-icon", children: [
@@ -1108,76 +1125,76 @@ var strapiUrl = "http://localhost:1337", getImgUrl = ({ url, username }) => url 
           !1,
           {
             fileName: "app/components/Profile/Card/index.tsx",
-            lineNumber: 70,
+            lineNumber: 60,
             columnNumber: 21
           },
           this
         ) }, void 0, !1, {
           fileName: "app/components/Profile/Card/index.tsx",
-          lineNumber: 69,
+          lineNumber: 59,
           columnNumber: 19
         }, this),
         /* @__PURE__ */ jsxDEV8("a", { href: "http://miracleio.me", target: "_blank", rel: "noopener noreferrer", className: "link", children: profile.websiteUrl }, void 0, !1, {
           fileName: "app/components/Profile/Card/index.tsx",
-          lineNumber: 76,
+          lineNumber: 66,
           columnNumber: 19
         }, this)
       ] }, void 0, !0, {
         fileName: "app/components/Profile/Card/index.tsx",
-        lineNumber: 68,
+        lineNumber: 58,
         columnNumber: 17
       }, this)
     ] }, void 0, !0, {
       fileName: "app/components/Profile/Card/index.tsx",
-      lineNumber: 51,
+      lineNumber: 41,
       columnNumber: 13
     }, this),
     !preview && /* @__PURE__ */ jsxDEV8("footer", { className: "grow flex items-end justify-end pt-4", children: profile?.slug && /* @__PURE__ */ jsxDEV8(Link2, { to: `/members/${profile?.slug}`, children: /* @__PURE__ */ jsxDEV8("button", { className: "cta w-icon", children: [
       /* @__PURE__ */ jsxDEV8("span", { children: "View profile" }, void 0, !1, {
         fileName: "app/components/Profile/Card/index.tsx",
-        lineNumber: 87,
+        lineNumber: 77,
         columnNumber: 23
       }, this),
       /* @__PURE__ */ jsxDEV8("svg", { xmlns: "http://www.w3.org/2000/svg", className: "icon stroke", fill: "none", viewBox: "0 0 24 24", stroke: "currentColor", strokeWidth: 2, children: /* @__PURE__ */ jsxDEV8("path", { strokeLinecap: "round", strokeLinejoin: "round", d: "M17 8l4 4m0 0l-4 4m4-4H3" }, void 0, !1, {
         fileName: "app/components/Profile/Card/index.tsx",
-        lineNumber: 89,
+        lineNumber: 79,
         columnNumber: 25
       }, this) }, void 0, !1, {
         fileName: "app/components/Profile/Card/index.tsx",
-        lineNumber: 88,
+        lineNumber: 78,
         columnNumber: 23
       }, this)
     ] }, void 0, !0, {
       fileName: "app/components/Profile/Card/index.tsx",
-      lineNumber: 86,
+      lineNumber: 76,
       columnNumber: 21
     }, this) }, void 0, !1, {
       fileName: "app/components/Profile/Card/index.tsx",
-      lineNumber: 85,
+      lineNumber: 75,
       columnNumber: 19
     }, this) }, void 0, !1, {
       fileName: "app/components/Profile/Card/index.tsx",
-      lineNumber: 83,
+      lineNumber: 73,
       columnNumber: 15
     }, this)
   ] }, void 0, !0, {
     fileName: "app/components/Profile/Card/index.tsx",
-    lineNumber: 37,
+    lineNumber: 27,
     columnNumber: 11
   }, this)
 ] }, void 0, !0, {
   fileName: "app/components/Profile/Card/index.tsx",
-  lineNumber: 27,
+  lineNumber: 17,
   columnNumber: 9
 }, this) }, void 0, !1, {
   fileName: "app/components/Profile/Card/index.tsx",
-  lineNumber: 26,
+  lineNumber: 16,
   columnNumber: 7
 }, this) }, void 0, !1, {
   fileName: "app/components/Profile/Card/index.tsx",
-  lineNumber: 24,
+  lineNumber: 14,
   columnNumber: 5
-}, this)), Card_default = ProfileCard;
+}, this), Card_default = ProfileCard;
 
 // app/routes/members._index.tsx
 import { jsxDEV as jsxDEV9 } from "react/jsx-dev-runtime";
@@ -1190,44 +1207,44 @@ function Members() {
     /* @__PURE__ */ jsxDEV9("header", { className: "section-header", children: [
       /* @__PURE__ */ jsxDEV9("h2", { className: "text-4xl", children: "Explore profiles" }, void 0, !1, {
         fileName: "app/routes/members._index.tsx",
-        lineNumber: 30,
+        lineNumber: 29,
         columnNumber: 11
       }, this),
       /* @__PURE__ */ jsxDEV9("p", { children: "Find and connect with amazing people all over the world!" }, void 0, !1, {
         fileName: "app/routes/members._index.tsx",
-        lineNumber: 31,
+        lineNumber: 30,
         columnNumber: 11
       }, this)
     ] }, void 0, !0, {
       fileName: "app/routes/members._index.tsx",
-      lineNumber: 29,
+      lineNumber: 28,
       columnNumber: 9
     }, this),
     profiles.length > 0 ? /* @__PURE__ */ jsxDEV9("ul", { className: "profiles-list", children: profiles.map((profile) => /* @__PURE__ */ jsxDEV9("li", { className: "profile-item", children: /* @__PURE__ */ jsxDEV9(Card_default, { profile, preview: !1 }, void 0, !1, {
       fileName: "app/routes/members._index.tsx",
-      lineNumber: 37,
+      lineNumber: 36,
       columnNumber: 17
     }, this) }, profile.id, !1, {
       fileName: "app/routes/members._index.tsx",
-      lineNumber: 36,
+      lineNumber: 35,
       columnNumber: 15
     }, this)) }, void 0, !1, {
       fileName: "app/routes/members._index.tsx",
-      lineNumber: 34,
+      lineNumber: 33,
       columnNumber: 11
     }, this) : /* @__PURE__ */ jsxDEV9("p", { children: "No profiles yet \u{1F642}" }, void 0, !1, {
       fileName: "app/routes/members._index.tsx",
-      lineNumber: 42,
+      lineNumber: 41,
       columnNumber: 11
     }, this),
     " "
   ] }, void 0, !0, {
     fileName: "app/routes/members._index.tsx",
-    lineNumber: 28,
+    lineNumber: 27,
     columnNumber: 7
   }, this) }, void 0, !1, {
     fileName: "app/routes/members._index.tsx",
-    lineNumber: 27,
+    lineNumber: 26,
     columnNumber: 5
   }, this);
 }
@@ -1448,66 +1465,184 @@ var action6 = async ({ request }) => {
   }, this);
 }, auth_login_default = Login;
 
-// app/routes/blog._index.tsx
-var blog_index_exports = {};
-__export(blog_index_exports, {
-  default: () => Index,
+// app/routes/blog.$id.tsx
+var blog_id_exports = {};
+__export(blog_id_exports, {
+  default: () => blog_id_default,
   loader: () => loader6
 });
 import { json as json8 } from "@remix-run/node";
-import { jsxDEV as jsxDEV12 } from "react/jsx-dev-runtime";
-var loader6 = async () => json8({
-  profiles: await getProfiles()
+import { useLoaderData as useLoaderData5 } from "@remix-run/react";
+
+// app/models/blog.server.ts
+var strapiApiUrl2 = process.env.STRAPI_API_URL, getBlog = async () => (await (await fetch(`${strapiApiUrl2}/blogs/?populate=hero`)).json()).data, getBlogPost = async (id) => (await (await fetch(`${strapiApiUrl2}/blogs/${id}`)).json()).data;
+
+// app/routes/blog.$id.tsx
+import { Fragment as Fragment5, jsxDEV as jsxDEV12 } from "react/jsx-dev-runtime";
+var loader6 = async ({ params }) => json8({
+  post: await getBlogPost(params.id)
+}), BlogPost = () => {
+  let { post: { attributes } } = useLoaderData5();
+  return console.log(attributes), /* @__PURE__ */ jsxDEV12("section", { className: "site-section", children: /* @__PURE__ */ jsxDEV12("div", { className: "wrapper flex items-center py-16 min-h-[calc(100vh-4rem)]", children: /* @__PURE__ */ jsxDEV12("div", { className: "profile-cont w-full max-w-5xl m-auto", children: attributes ? /* @__PURE__ */ jsxDEV12(Fragment5, { children: /* @__PURE__ */ jsxDEV12("h2", { children: attributes.title }, void 0, !1, {
+    fileName: "app/routes/blog.$id.tsx",
+    lineNumber: 27,
+    columnNumber: 29
+  }, this) }, void 0, !1, {
+    fileName: "app/routes/blog.$id.tsx",
+    lineNumber: 26,
+    columnNumber: 25
+  }, this) : /* @__PURE__ */ jsxDEV12("p", { className: "text-center", children: "Oops, that post doesn't exist... yet" }, void 0, !1, {
+    fileName: "app/routes/blog.$id.tsx",
+    lineNumber: 30,
+    columnNumber: 25
+  }, this) }, void 0, !1, {
+    fileName: "app/routes/blog.$id.tsx",
+    lineNumber: 24,
+    columnNumber: 17
+  }, this) }, void 0, !1, {
+    fileName: "app/routes/blog.$id.tsx",
+    lineNumber: 23,
+    columnNumber: 13
+  }, this) }, void 0, !1, {
+    fileName: "app/routes/blog.$id.tsx",
+    lineNumber: 22,
+    columnNumber: 9
+  }, this);
+}, blog_id_default = BlogPost;
+
+// app/routes/blog.all.tsx
+var blog_all_exports = {};
+__export(blog_all_exports, {
+  default: () => Index,
+  loader: () => loader7
 });
-function Index() {
-  return /* @__PURE__ */ jsxDEV12("section", { className: "site-section profiles-section", children: /* @__PURE__ */ jsxDEV12("div", { children: /* @__PURE__ */ jsxDEV12("header", { className: "section-header", children: [
-    /* @__PURE__ */ jsxDEV12("h2", { className: "text-4xl", children: "Blog!" }, void 0, !1, {
-      fileName: "app/routes/blog._index.tsx",
-      lineNumber: 27,
-      columnNumber: 11
+import { json as json9 } from "@remix-run/node";
+import { useLoaderData as useLoaderData6 } from "@remix-run/react";
+
+// app/components/Blog/Card/index.tsx
+import { Link as Link3 } from "@remix-run/react";
+import { jsxDEV as jsxDEV13 } from "react/jsx-dev-runtime";
+function BlogCard({ post }) {
+  let data = post.attributes;
+  return /* @__PURE__ */ jsxDEV13("div", { className: "card", children: /* @__PURE__ */ jsxDEV13("div", { className: "card-content", children: [
+    /* @__PURE__ */ jsxDEV13("div", { className: "card-img", children: /* @__PURE__ */ jsxDEV13(
+      "img",
+      {
+        src: `${strapiUrl}${data.hero.data.attributes.url}`,
+        alt: data.hero.data.attributes.alternativeText
+      },
+      void 0,
+      !1,
+      {
+        fileName: "app/components/Blog/Card/index.tsx",
+        lineNumber: 10,
+        columnNumber: 11
+      },
+      this
+    ) }, void 0, !1, {
+      fileName: "app/components/Blog/Card/index.tsx",
+      lineNumber: 9,
+      columnNumber: 9
     }, this),
-    /* @__PURE__ */ jsxDEV12("p", { children: "Welcome to the new blog" }, void 0, !1, {
-      fileName: "app/routes/blog._index.tsx",
-      lineNumber: 28,
-      columnNumber: 11
+    /* @__PURE__ */ jsxDEV13("div", { className: "card-details", children: [
+      /* @__PURE__ */ jsxDEV13(Link3, { to: `/blog/${post.id}`, className: "card-title", children: data.title }, void 0, !1, {
+        fileName: "app/components/Blog/Card/index.tsx",
+        lineNumber: 17,
+        columnNumber: 11
+      }, this),
+      /* @__PURE__ */ jsxDEV13("p", { className: "card-excerpt", children: data.excerpt }, void 0, !1, {
+        fileName: "app/components/Blog/Card/index.tsx",
+        lineNumber: 21,
+        columnNumber: 11
+      }, this)
+    ] }, void 0, !0, {
+      fileName: "app/components/Blog/Card/index.tsx",
+      lineNumber: 15,
+      columnNumber: 9
     }, this)
   ] }, void 0, !0, {
-    fileName: "app/routes/blog._index.tsx",
-    lineNumber: 26,
-    columnNumber: 9
-  }, this) }, void 0, !1, {
-    fileName: "app/routes/blog._index.tsx",
-    lineNumber: 25,
+    fileName: "app/components/Blog/Card/index.tsx",
+    lineNumber: 8,
     columnNumber: 7
   }, this) }, void 0, !1, {
-    fileName: "app/routes/blog._index.tsx",
-    lineNumber: 24,
+    fileName: "app/components/Blog/Card/index.tsx",
+    lineNumber: 7,
     columnNumber: 5
   }, this);
 }
 
-// app/routes/blog.$slug.tsx
-var blog_slug_exports = {};
+// app/routes/blog.all.tsx
+import { jsxDEV as jsxDEV14 } from "react/jsx-dev-runtime";
+var loader7 = async () => json9({
+  blog: await getBlog()
+});
+function Index() {
+  let { blog } = useLoaderData6();
+  return /* @__PURE__ */ jsxDEV14("section", { className: "site-section profiles-section", children: /* @__PURE__ */ jsxDEV14("div", { children: [
+    /* @__PURE__ */ jsxDEV14("header", { className: "section-header", children: [
+      /* @__PURE__ */ jsxDEV14("h2", { className: "text-4xl", children: "Blog!" }, void 0, !1, {
+        fileName: "app/routes/blog.all.tsx",
+        lineNumber: 24,
+        columnNumber: 11
+      }, this),
+      /* @__PURE__ */ jsxDEV14("p", { children: "Welcome to the new blog" }, void 0, !1, {
+        fileName: "app/routes/blog.all.tsx",
+        lineNumber: 25,
+        columnNumber: 11
+      }, this)
+    ] }, void 0, !0, {
+      fileName: "app/routes/blog.all.tsx",
+      lineNumber: 23,
+      columnNumber: 9
+    }, this),
+    blog.length > 0 ? /* @__PURE__ */ jsxDEV14("ul", { className: "profiles-list", children: blog.map((post) => /* @__PURE__ */ jsxDEV14("li", { className: "profile-item", children: /* @__PURE__ */ jsxDEV14(BlogCard, { post }, void 0, !1, {
+      fileName: "app/routes/blog.all.tsx",
+      lineNumber: 31,
+      columnNumber: 17
+    }, this) }, post.id, !1, {
+      fileName: "app/routes/blog.all.tsx",
+      lineNumber: 30,
+      columnNumber: 15
+    }, this)) }, void 0, !1, {
+      fileName: "app/routes/blog.all.tsx",
+      lineNumber: 28,
+      columnNumber: 11
+    }, this) : /* @__PURE__ */ jsxDEV14("p", { children: "No blog posts yet \u{1F642}" }, void 0, !1, {
+      fileName: "app/routes/blog.all.tsx",
+      lineNumber: 36,
+      columnNumber: 11
+    }, this),
+    " "
+  ] }, void 0, !0, {
+    fileName: "app/routes/blog.all.tsx",
+    lineNumber: 22,
+    columnNumber: 7
+  }, this) }, void 0, !1, {
+    fileName: "app/routes/blog.all.tsx",
+    lineNumber: 21,
+    columnNumber: 5
+  }, this);
+}
 
 // app/routes/_index.tsx
 var index_exports = {};
 __export(index_exports, {
   default: () => Index2,
-  loader: () => loader7
+  loader: () => loader8
 });
-import { json as json9 } from "@remix-run/node";
-import { jsxDEV as jsxDEV13 } from "react/jsx-dev-runtime";
-var loader7 = async () => json9({
+import { json as json10 } from "@remix-run/node";
+import { jsxDEV as jsxDEV15 } from "react/jsx-dev-runtime";
+var loader8 = async () => json10({
   profiles: await getProfiles()
 });
 function Index2() {
-  return /* @__PURE__ */ jsxDEV13("section", { className: "site-section profiles-section", children: /* @__PURE__ */ jsxDEV13("div", { children: /* @__PURE__ */ jsxDEV13("header", { className: "section-header", children: [
-    /* @__PURE__ */ jsxDEV13("h2", { className: "text-4xl", children: "Dashboard!" }, void 0, !1, {
+  return /* @__PURE__ */ jsxDEV15("section", { className: "site-section profiles-section", children: /* @__PURE__ */ jsxDEV15("div", { children: /* @__PURE__ */ jsxDEV15("header", { className: "section-header", children: [
+    /* @__PURE__ */ jsxDEV15("h2", { className: "text-4xl", children: "Dashboard!" }, void 0, !1, {
       fileName: "app/routes/_index.tsx",
       lineNumber: 27,
       columnNumber: 11
     }, this),
-    /* @__PURE__ */ jsxDEV13("p", { children: "Welcome to the new hub" }, void 0, !1, {
+    /* @__PURE__ */ jsxDEV15("p", { children: "Welcome to the new hub" }, void 0, !1, {
       fileName: "app/routes/_index.tsx",
       lineNumber: 28,
       columnNumber: 11
@@ -1528,7 +1663,7 @@ function Index2() {
 }
 
 // server-assets-manifest:@remix-run/dev/assets-manifest
-var assets_manifest_default = { entry: { module: "/build/entry.client-22PULDTS.js", imports: ["/build/_shared/chunk-ZWGWGGVF.js", "/build/_shared/chunk-GIAAE3CH.js", "/build/_shared/chunk-DJDRD27Q.js", "/build/_shared/chunk-XU7DNSPJ.js", "/build/_shared/chunk-3WQCWEBV.js", "/build/_shared/chunk-UWV35TSL.js", "/build/_shared/chunk-BOXFZXVX.js", "/build/_shared/chunk-PNG5AS42.js"] }, routes: { root: { id: "root", parentId: void 0, path: "", index: void 0, caseSensitive: void 0, module: "/build/root-6KE5VY7S.js", imports: ["/build/_shared/chunk-V22J52NZ.js", "/build/_shared/chunk-G7CHZRZX.js"], hasAction: !1, hasLoader: !0, hasErrorBoundary: !1 }, "routes/_auth.forgotPassword": { id: "routes/_auth.forgotPassword", parentId: "root", path: "forgotPassword", index: void 0, caseSensitive: void 0, module: "/build/routes/_auth.forgotPassword-QOJLWYML.js", imports: ["/build/_shared/chunk-JUU7V43I.js"], hasAction: !0, hasLoader: !1, hasErrorBoundary: !1 }, "routes/_auth.login": { id: "routes/_auth.login", parentId: "root", path: "login", index: void 0, caseSensitive: void 0, module: "/build/routes/_auth.login-DGYBKOTX.js", imports: ["/build/_shared/chunk-WATNCGCT.js", "/build/_shared/chunk-JUU7V43I.js"], hasAction: !0, hasLoader: !1, hasErrorBoundary: !1 }, "routes/_auth.logout": { id: "routes/_auth.logout", parentId: "root", path: "logout", index: void 0, caseSensitive: void 0, module: "/build/routes/_auth.logout-TQQKM25O.js", imports: void 0, hasAction: !0, hasLoader: !0, hasErrorBoundary: !1 }, "routes/_auth.register": { id: "routes/_auth.register", parentId: "root", path: "register", index: void 0, caseSensitive: void 0, module: "/build/routes/_auth.register-FSRAXQPQ.js", imports: ["/build/_shared/chunk-WATNCGCT.js", "/build/_shared/chunk-JUU7V43I.js"], hasAction: !0, hasLoader: !1, hasErrorBoundary: !1 }, "routes/_auth.resetPassword": { id: "routes/_auth.resetPassword", parentId: "root", path: "resetPassword", index: void 0, caseSensitive: void 0, module: "/build/routes/_auth.resetPassword-QESLOOPC.js", imports: ["/build/_shared/chunk-JUU7V43I.js"], hasAction: !0, hasLoader: !0, hasErrorBoundary: !1 }, "routes/_index": { id: "routes/_index", parentId: "root", path: void 0, index: !0, caseSensitive: void 0, module: "/build/routes/_index-PFWJY22W.js", imports: ["/build/_shared/chunk-JUU7V43I.js"], hasAction: !1, hasLoader: !0, hasErrorBoundary: !1 }, "routes/blog.$slug": { id: "routes/blog.$slug", parentId: "root", path: "blog/:slug", index: void 0, caseSensitive: void 0, module: "/build/routes/blog.$slug-5BU5YQ3B.js", imports: void 0, hasAction: !1, hasLoader: !1, hasErrorBoundary: !1 }, "routes/blog._index": { id: "routes/blog._index", parentId: "root", path: "blog", index: !0, caseSensitive: void 0, module: "/build/routes/blog._index-3MJTPDVP.js", imports: ["/build/_shared/chunk-JUU7V43I.js"], hasAction: !1, hasLoader: !0, hasErrorBoundary: !1 }, "routes/members.$slug": { id: "routes/members.$slug", parentId: "root", path: "members/:slug", index: void 0, caseSensitive: void 0, module: "/build/routes/members.$slug-QABXYT4K.js", imports: ["/build/_shared/chunk-WATNCGCT.js", "/build/_shared/chunk-6X3KF2GB.js", "/build/_shared/chunk-JUU7V43I.js"], hasAction: !0, hasLoader: !0, hasErrorBoundary: !1 }, "routes/members._index": { id: "routes/members._index", parentId: "root", path: "members", index: !0, caseSensitive: void 0, module: "/build/routes/members._index-AHYXCC6U.js", imports: ["/build/_shared/chunk-6X3KF2GB.js", "/build/_shared/chunk-JUU7V43I.js"], hasAction: !1, hasLoader: !0, hasErrorBoundary: !1 } }, version: "d4f0979b", hmr: { runtime: "/build/_shared/chunk-3WQCWEBV.js", timestamp: 1699294774628 }, url: "/build/manifest-D4F0979B.js" };
+var assets_manifest_default = { entry: { module: "/build/entry.client-PGYEBOCP.js", imports: ["/build/_shared/chunk-ZWGWGGVF.js", "/build/_shared/chunk-GIAAE3CH.js", "/build/_shared/chunk-RZPHRSLC.js", "/build/_shared/chunk-XU7DNSPJ.js", "/build/_shared/chunk-CQXNOMFL.js", "/build/_shared/chunk-UWV35TSL.js", "/build/_shared/chunk-BOXFZXVX.js", "/build/_shared/chunk-PNG5AS42.js"] }, routes: { root: { id: "root", parentId: void 0, path: "", index: void 0, caseSensitive: void 0, module: "/build/root-SPN7RCVH.js", imports: ["/build/_shared/chunk-V22J52NZ.js", "/build/_shared/chunk-G7CHZRZX.js"], hasAction: !1, hasLoader: !0, hasErrorBoundary: !1 }, "routes/_auth.forgotPassword": { id: "routes/_auth.forgotPassword", parentId: "root", path: "forgotPassword", index: void 0, caseSensitive: void 0, module: "/build/routes/_auth.forgotPassword-7ZYH6QT5.js", imports: ["/build/_shared/chunk-JUU7V43I.js"], hasAction: !0, hasLoader: !1, hasErrorBoundary: !1 }, "routes/_auth.login": { id: "routes/_auth.login", parentId: "root", path: "login", index: void 0, caseSensitive: void 0, module: "/build/routes/_auth.login-GXF7UWZR.js", imports: ["/build/_shared/chunk-PF5UGGKY.js", "/build/_shared/chunk-JUU7V43I.js"], hasAction: !0, hasLoader: !1, hasErrorBoundary: !1 }, "routes/_auth.logout": { id: "routes/_auth.logout", parentId: "root", path: "logout", index: void 0, caseSensitive: void 0, module: "/build/routes/_auth.logout-TQQKM25O.js", imports: void 0, hasAction: !0, hasLoader: !0, hasErrorBoundary: !1 }, "routes/_auth.register": { id: "routes/_auth.register", parentId: "root", path: "register", index: void 0, caseSensitive: void 0, module: "/build/routes/_auth.register-J65OYWMM.js", imports: ["/build/_shared/chunk-PF5UGGKY.js", "/build/_shared/chunk-JUU7V43I.js"], hasAction: !0, hasLoader: !1, hasErrorBoundary: !1 }, "routes/_auth.resetPassword": { id: "routes/_auth.resetPassword", parentId: "root", path: "resetPassword", index: void 0, caseSensitive: void 0, module: "/build/routes/_auth.resetPassword-Z7PS3WTV.js", imports: ["/build/_shared/chunk-JUU7V43I.js"], hasAction: !0, hasLoader: !0, hasErrorBoundary: !1 }, "routes/_index": { id: "routes/_index", parentId: "root", path: void 0, index: !0, caseSensitive: void 0, module: "/build/routes/_index-YSOF37DW.js", imports: ["/build/_shared/chunk-JUU7V43I.js"], hasAction: !1, hasLoader: !0, hasErrorBoundary: !1 }, "routes/blog.$id": { id: "routes/blog.$id", parentId: "root", path: "blog/:id", index: void 0, caseSensitive: void 0, module: "/build/routes/blog.$id-ND3NFL4F.js", imports: ["/build/_shared/chunk-SFZDIPEC.js"], hasAction: !1, hasLoader: !0, hasErrorBoundary: !1 }, "routes/blog.all": { id: "routes/blog.all", parentId: "root", path: "blog/all", index: void 0, caseSensitive: void 0, module: "/build/routes/blog.all-BFQST4UB.js", imports: ["/build/_shared/chunk-SFZDIPEC.js", "/build/_shared/chunk-GDFLR6UG.js"], hasAction: !1, hasLoader: !0, hasErrorBoundary: !1 }, "routes/members.$slug": { id: "routes/members.$slug", parentId: "root", path: "members/:slug", index: void 0, caseSensitive: void 0, module: "/build/routes/members.$slug-NXXWTV7Y.js", imports: ["/build/_shared/chunk-PF5UGGKY.js", "/build/_shared/chunk-DYRTJG6H.js", "/build/_shared/chunk-GDFLR6UG.js", "/build/_shared/chunk-JUU7V43I.js"], hasAction: !0, hasLoader: !0, hasErrorBoundary: !1 }, "routes/members._index": { id: "routes/members._index", parentId: "root", path: "members", index: !0, caseSensitive: void 0, module: "/build/routes/members._index-WEK4ZXQU.js", imports: ["/build/_shared/chunk-DYRTJG6H.js", "/build/_shared/chunk-GDFLR6UG.js", "/build/_shared/chunk-JUU7V43I.js"], hasAction: !1, hasLoader: !0, hasErrorBoundary: !1 } }, version: "3734e4f8", hmr: { runtime: "/build/_shared/chunk-CQXNOMFL.js", timestamp: 1699311675138 }, url: "/build/manifest-3734E4F8.js" };
 
 // server-entry-module:@remix-run/dev/server-build
 var mode = "development", assetsBuildDirectory = "public/build", future = { v3_fetcherPersist: !1 }, publicPath = "/build/", entry = { module: entry_server_exports }, routes = {
@@ -1596,21 +1731,21 @@ var mode = "development", assetsBuildDirectory = "public/build", future = { v3_f
     caseSensitive: void 0,
     module: auth_login_exports
   },
-  "routes/blog._index": {
-    id: "routes/blog._index",
+  "routes/blog.$id": {
+    id: "routes/blog.$id",
     parentId: "root",
-    path: "blog",
-    index: !0,
-    caseSensitive: void 0,
-    module: blog_index_exports
-  },
-  "routes/blog.$slug": {
-    id: "routes/blog.$slug",
-    parentId: "root",
-    path: "blog/:slug",
+    path: "blog/:id",
     index: void 0,
     caseSensitive: void 0,
-    module: blog_slug_exports
+    module: blog_id_exports
+  },
+  "routes/blog.all": {
+    id: "routes/blog.all",
+    parentId: "root",
+    path: "blog/all",
+    index: void 0,
+    caseSensitive: void 0,
+    module: blog_all_exports
   },
   "routes/_index": {
     id: "routes/_index",

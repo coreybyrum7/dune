@@ -1,0 +1,19 @@
+{
+  "collectionName": "components_organisms_sections",
+  "info": {
+    "displayName": "Section",
+    "icon": "dashboard"
+  },
+  "options": {},
+  "attributes": {
+    "Width": {
+      "type": "enumeration",
+      "enum": [
+        "Default",
+        "Full",
+        "Narrow"
+      ],
+      "default": "Default"
+    }
+  }
+}

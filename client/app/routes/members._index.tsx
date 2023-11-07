@@ -22,7 +22,6 @@ export const loader = async () => {
 
 export default function Members() {
   const { profiles } = useLoaderData() as Loaderdata;
-
   return (
     <section className="site-section profiles-section">
       <div>
